@@ -1,0 +1,138 @@
+{
+
+    "layer": "top",
+    "position": "top",
+    "margin-top": 6,
+    "margin-bottom": -4,
+    "margin-left": 8,
+    "margin-right": 8,
+    "spacing": 8,
+
+
+  "modules-left":
+    ["custom/os_button","clock","tray","hyprland/workspaces"],
+
+  "modules-center":
+    ["custom/now_playing_artist","custom/now_playing"],
+
+  "modules-right":
+    ["temperature","cpu","custom/mem","privacy","custom/network_speed","custom/power"],
+
+
+
+    "clock": {
+        "format-alt": "{:%d / %m / %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-scroll-up": "tz_up",
+                    "on-scroll-down": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+
+    "cpu": {
+        "format": "{usage}% ",
+        "interval": 1
+    },
+
+    "custom/mem": {
+        "format": "{}",
+        "interval": 3,
+        "exec": "free -m | awk '/Mem:/ {printf \"%d MB\", $3}'",
+        "tooltip": false
+    },
+
+    "custom/network_speed": {
+        "exec": "~/zzz/scripts/waybar/network_monitor.sh",
+        "on-click": "~/zzz/scripts/waybar/wifi_settings.sh",
+        "interval": 1,
+        "tooltip": false
+    },
+
+    "custom/now_playing_artist": {
+        "exec": "~/zzz/scripts/waybar/now_playing_artist.sh",
+        "on-click": "playerctl previous",
+        "on-click-right": "playerctl next",
+        "interval": 1,
+        "tooltip": false
+    },
+
+    "custom/now_playing": {
+        "exec": "~/zzz/scripts/waybar/now_playing.sh",
+        "on-click-right": "zen-browser --new-tab https://music.youtube.com",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "interval": 1,
+        "tooltip": false
+    },
+
+    "custom/os_button": {
+        "format": "󰣇",
+        "on-click": "rofi -show drun",
+        "tooltip": false
+    },
+
+    "custom/power": {
+        "format": "",
+        "on-click": "sh $HOME/zzz/scripts/waybar/power_management.sh",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1",
+        "format": "{icon}",
+        "format-icons": {"active": "","default": ""},
+        "persistent-workspaces": {"1": [],"2": [],"3": [],"4": [],"4": [],"5": [],"6": [],"7": [],"8": []}
+    },
+
+    "privacy": {
+        "icon-size": 10,
+        "icon-spacing": 8,
+        "transition-duration": 200,
+        "modules": [
+        {
+          "type": "screenshare",
+          "tooltip": true
+        },
+        {
+          "type": "audio-in",
+          "tooltip": true
+        }
+/*        
+        {
+          "type": "audio-out",
+          "tooltip": true
+        },
+*/        
+      ]
+    },
+
+    "temperature": {
+        "critical-threshold": 70,
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": [""]
+    },
+
+    "tray": {
+        "icon-theme": "kora",
+        "icon-size": 10,
+        "spacing": 12
+    }
+}
